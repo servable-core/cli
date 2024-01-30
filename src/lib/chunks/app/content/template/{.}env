@@ -1,0 +1,43 @@
+NODE_ENV=development
+PUBLIC_SERVER_URL=http://localhost:<%= appPort %>
+SERVER_PORT=<%= appPort %>
+
+# -----------------------------
+# Servable environment variables
+# -----------------------------
+
+SERVABLE_APP_ID=<%= appId %>
+SERVABLE_APP_NAME=<%= appName %>
+SERVABLE_MASTER_KEY=<%= appMasterKey %>
+SERVABLE_REST_API_KEY=<%= restApiKey %>
+SERVABLE_JAVASCRIPT_KEY=<%= appJavascriptKey %>
+
+SERVABLE_DATABASE_URI=<%- databaseURI %>
+SERVABLE_UTILS_DATABASE_URI=<%- utilsDatabaseURI %>
+SERVABLE_REDIS_CACHE_URI=redis://:REDIS_PWD_TO_CHANGE@localhost:<%= appCachePort %>
+SERVABLE_REDIS_LIVESERVER_DB_URI=redis://:REDIS_PWD_LS_TO_CHANGE@localhost:<%= appLiveQueryCachePort %>
+
+SERVABLE_OBJECTSTORAGE_ROOT_USER=<%= appMinioUser %>
+SERVABLE_OBJECTSTORAGE_ROOT_PASSWORD=<%= appMinioPassword %>
+SERVABLE_OBJECTSTORAGE_ENDPOINT=<%- appMinioEndpoint %>
+SERVABLE_OBJECTSTORAGE_BUCKET_NAME=<%= appMinioBucket %>
+
+SERVABLE_MOUNT=/<%= appEndpoint %>
+SERVABLE_MOUNT_STAGING=/parsestaging
+
+SERVABLE_PUBLIC_SERVER_URL=http://localhost:<%= appPort %>
+SERVABLE_SERVER_URL=http://localhost:<%= appPort %>
+
+SERVABLE_VERBOSE=1
+SERVABLE_LOG_LEVEL=verbose
+
+SERVABLE_LIVESERVER_CLASSES = []
+
+SERVABLE_PUSH_IOS_KEYID=
+SERVABLE_PUSH_IOS_TEAMID=
+SERVABLE_APP_BUNDLE_ID=
+SERVABLE_ANDROID_FCM_SERVER_KEY=
+
+# ----------------------------------------
+# Custom environment variables & Overrides
+# ----------------------------------------

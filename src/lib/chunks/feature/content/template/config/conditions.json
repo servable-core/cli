@@ -1,0 +1,57 @@
+[
+    {
+        "key": "isPremium",
+        "name": "Talks french",
+        "description": "",
+        "values": [
+            {
+                "type": "locale",
+                "params": {
+                    "operator": "isIn",
+                    "values": [
+                        "en_US",
+                        "fr_FR"
+                    ]
+                }
+            }
+        ],
+        "isEnabled": true
+    },
+    {
+        "key": "earlyBirds",
+        "name": "Early birds",
+        "description": "",
+        "values": [
+            {
+                "type": "locale",
+                "params": {
+                    "operator": "isIn",
+                    "values": [
+                        "en_US",
+                        "fr_FR"
+                    ]
+                }
+            }
+        ],
+        "isEnabled": true
+    },
+    {
+        "key": "superUsers",
+        "name": "Early birds",
+        "description": "",
+        "type": "language",
+        "values": [
+            {
+                "type": "language",
+                "params": {
+                    "operator": "isIn",
+                    "values": [
+                        "en_US",
+                        "fr_FR"
+                    ]
+                }
+            }
+        ],
+        "isEnabled": true
+    }
+]

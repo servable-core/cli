@@ -1,0 +1,97 @@
+{
+  "name": "<%= featureId %>",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "<%= featureDescription %>",
+  "main": "src/index.json",
+  "files": [
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "servable",
+    "feature",
+    "parse-server",
+    "expressjs"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "<%= repositoryUrl %>/issues"
+  },
+  "homepage": "<%= repositoryUrl %>#readme",
+  "peerDependencies": {
+    "@servable/engine": "*"
+  },
+  "scripts": {
+    "semantic-release": "semantic-release",
+    "acp": "git add . && npm run commit && git push",
+    "commit": "git-cz",
+    "size": "size-limit",
+    "analyze": "size-limit --why",
+    "start": "microbundle-crl watch --no-compress --format modern,cjs",
+    "test": "run-s test:unit test:lint test:build",
+    "test:build": "run-s build",
+    "test:lint": "eslint .",
+    "test:unit": "yarn node --require=dotenv/config --experimental-vm-modules --experimental-specifier-resolution=node $(yarn bin jest) --config ./jest.config.json",
+    "test:watch": "react-scripts test --env=jsdom",
+    "prepare": "husky install",
+    "servable:license": "cp ./src/LICENSE ./LICENSE 2>/dev/null || :",
+    "servable:readme": "node -e 'import(\"./node_modules/@servable/tools/src/index.js\").then(m => m.generateGithubReadme({path: (process.cwd() + \"/src\"), write: true, targetPath: (process.cwd() + \"/README.md\" )}))'",
+    "servable:document": "node -e 'import(\"./node_modules/@servable/tools/src/index.js\").then(m => m.documentFeature({path: (process.cwd() + \"/src\"), write: true}))'"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "size-limit": [
+    {
+      "path": "dist/index.js",
+      "limit": "20 KB"
+    },
+    {
+      "path": "dist/index.modern.js",
+      "limit": "20 KB"
+    },
+    {
+      "path": "dist/index.umd.js",
+      "limit": "20 KB"
+    }
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^4.10.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^29.7.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.0.4",
+    "semantic-release": "^22.0.5",
+    "size-limit": "^4.10.2",
+    "@servable/tools": "^1",
+    "husky": "^8.0.3"
+  }
+}

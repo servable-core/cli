@@ -1,0 +1,84 @@
+{
+  "name": "<%= appId %>",
+  "version": "0.0.0",
+  "description": "<%= appDescription %>",
+  "homepage": "",
+  <% if (locals.authorName && locals.authorEmail && locals.authorUrl) { %>
+  "author": {
+      "name": "<%= authorName %>",
+      "email": "<%= authorEmail %>",
+      "url": "<%= authorUrl %>"
+    },
+  <%
+  } %>
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "keywords": [
+    "servable",
+    "parse",
+    "parse-server"
+  ],
+  "engines": {
+    "npm": ">= 4.0.0"
+  },
+  "type": "module",
+  "dependencies": {
+    "@servable/engine": "^1"
+  },
+  "scripts": {
+    "start": "node --require=dotenv/config --es-module-specifier-resolution=node --experimental-specifier-resolution=node index.js",
+    "test": "yarn node --require=dotenv/config --experimental-vm-modules --experimental-specifier-resolution=node $(yarn bin jest) --config ./jest.config.json",
+    "test:watch": "yarn test -- --watch",
+    "pretest": "eslint ."
+  },
+  "devDependencies": {
+    "jest": "^26.1.0",
+    "dotenv": "^16.0.1",
+    "coveralls": "^3.0.7",
+    "eslint": "^6.6.0",
+    "prettier": "^1.19.1",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.3",
+    "eslint-config-prettier": "^6.6.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-config-xo": "^0.27.2"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "eslintConfig": {
+    "extends": [
+      "xo",
+      "prettier"
+    ],
+    "env": {
+      "jest": true,
+      "node": true
+    },
+    "rules": {
+      "prettier/prettier": "error"
+    },
+    "plugins": [
+      "prettier"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  <% if (locals.license) { %>"license": "<%= license %>"<%
+  } %>
+}

@@ -1,0 +1,40 @@
+[
+    {
+        "key": "defaultLocale",
+        "description": "Default locale",
+        "type": "boolean",
+        "valueUseInApp": false,
+        "isEnabled": true,
+        "values": [
+            {
+                "conditionKey": "isPremium",
+                "valueUseInApp": false,
+                "value": "Premium value",
+                "valueType": "string",
+                "priority": 0
+            },
+            {
+                "conditionKey": "earlyBirds",
+                "valueUseInApp": false,
+                "value": "Early birds value",
+                "valueType": "string",
+                "priority": 1
+            }
+        ]
+    },
+    {
+        "key": "defaultCountry",
+        "description": "Default country",
+        "type": "boolean",
+        "valueUseInApp": false,
+        "isEnabled": true,
+        "values": [
+            {
+                "conditionKey": "isPremium",
+                "valueUseInApp": false,
+                "value": "",
+                "valueType": ""
+            }
+        ]
+    }
+]
