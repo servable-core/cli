@@ -1,451 +1,462 @@
-/**
- *  Steps handler
- */
-
-var Steps = {}
-
-Steps.init = function () {
-    this.buildParseUrl()
-    this.bindBtn('#step-3-btn', function (e) {
-        ParseRequest.jobFillArticlesText()
-        e.preventDefault()
-  })
-    this.bindBtn('#step-fill-language-btn', function (e) {
-        ParseRequest.jobFillArticlesLanguage()
-        e.preventDefault()
-  })
-    this.bindBtn('#step-fill-words-btn', function (e) {
-        ParseRequest.jobFillArticlesWords()
-        e.preventDefault()
-  })
-    this.bindBtn('#step-fill-domain-btn', function (e) {
-        ParseRequest.jobFillArticlesDomain()
-        e.preventDefault()
-  })
-}
-
-Steps.buildParseUrl = function () {
-    var url = Config.getUrl()
-    $('#parse-url').html(url + '/parse')
-}
-
-Steps.bindBtn = function (id, callback) {
-    $(id).click(callback)
-}
-
-Steps.closeStep = function (id) {
-    $(id).addClass('step--disabled')
-}
-
-Steps.openStep = function (id) {
-    $(id).removeClass('step--disabled')
-}
-
-Steps.fillStepOutput = function (id, data) {
-    $(id).html('Output: ' + data).slideDown()
-}
-
-Steps.fillBtn = function (id, message) {
-    $(id).addClass('success').html('✓  ' + message)
-}
-/**
- *  Parse requests handler
- */
-
-var ParseRequest = {}
-
-ParseRequest.postData = function () {
-    XHR.setCallback(function (data) {
-    // store objectID
-        Store.objectId = JSON.parse(data).objectId
-        // close first step
-        Steps.closeStep('#step-1')
-        Steps.fillStepOutput('#step-1-output', data)
-        Steps.fillBtn('#step-1-btn', 'Posted')
-        // open second step
-        Steps.openStep('#step-2')
-        Steps.bindBtn('#step-2-btn', function (e) {
-            ParseRequest.getData()
-            e.preventDefault()
-    })
-  })
-    XHR.POST('/parse/classes/GameScore')
-}
-
-
-ParseRequest.jobFillArticlesText = function () {
-    XHR.setCallback(function (data) {
-    // close second step
-    //Steps.fillStepOutput('#step-3-output', data)
-        Steps.fillBtn('#step-3-btn', 'Job launched!')
-        // open third step
-  })
-    XHR.POST('/parse/functions/jobFillArticlesText')
-}
-
-ParseRequest.jobFillArticlesLanguage = function () {
-    XHR.setCallback(function (data) {
-    // close second step
-    //Steps.fillStepOutput('#step-3-output', data)
-        Steps.fillBtn('#step-fill-language-btn', 'Job launched!')
-        // open third step
-  })
-    XHR.POST('/parse/functions/jobFillArticlesLanguage')
-}
-
-ParseRequest.jobFillArticlesWords = function () {
-    XHR.setCallback(function (data) {
-    // close second step
-    // Steps.fillStepOutput('#step-3-output', data)
-        Steps.fillBtn('#step-fill-words-btn', 'Job launched!')
-        // open third step
-  })
-    XHR.POST('/parse/functions/jobFillArticlesWords')
-}
-
-
-ParseRequest.jobFillArticlesDomain = function () {
-    XHR.setCallback(function (data) {
-    // close second step
-    // Steps.fillStepOutput('#step-3-output', data)
-        Steps.fillBtn('#step-fill-domain-btn', 'Job launched!')
-        // open third step
-  })
-    XHR.POST('/parse/functions/jobFillArticlesDomain')
-}
-/**
- * Store objectId and other references
- */
-
-var Store = {
-    objectId: ""
-}
-
-var Config = {}
-
-Config.getUrl = function () {
-    if (url) return url
-    var port = window.location.port
-    var url = window.location.feature + ' //' + window.location.hostname
-    if (port) url = url + ':' + port
-    return url
-}
-/**
- * XHR object
- */
-
-var XHR = {}
-
-XHR.setCallback = function (callback) {
-    this.xhttp = new XMLHttpRequest()
-    var _self = this
-    this.xhttp.onreadystatechange = function () {
-        if (_self.xhttp.readyState == 4 && _self.xhttp.status >= 200 && _self.xhttp.status <= 299) {
-            callback(_self.xhttp.responseText)
-    }
-  }
-}
-
-XHR.POST = function (path, callback) {
-    var seed = {
-    "score": 1337,
-    "playerName": "Sean Plott",
-    "cheatMode": false
-  }
-    this.xhttp.open("POST", Config.getUrl() + path, true)
-    this.xhttp.setRequestHeader("X-Parse-Application-Id",
-  "offboxapi")
-    this.xhttp.setRequestHeader("Content-type",
-  "application/json")
-    this.xhttp.send(JSON.stringify(seed))
-}
-
-XHR.GET = function (path, callback) {
-    this.xhttp.open("GET", Config.getUrl() + path + '/' + Store.objectId, true)
-    this.xhttp.setRequestHeader("X-Parse-Application-Id",
-  "offboxapi")
-    this.xhttp.setRequestHeader("Content-type",
-  "application/json")
-    this.xhttp.send(null)
-}
-/**
- *  Boot
- */
-
-Steps.init()
+{
+  // Use IntelliSense to learn about possible Node.js debug attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.anak.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Login to registry",
+      "stopOnEntry": false,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/src/app.js",
+      "args": [
+        "registry",
+        "auth",
+        "login"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "envFile": "${workspaceFolder}/.env.development",
+      "runtimeArgs": [
+        // "--trace-warnings",
+        "--require=dotenv/config",
+        "--nolazy",
+        "--expose-gc",
+        "--inspect-brk",
+        "--experimental-modules",
+        "--es-module-specifier-resolution=node",
+        "--experimental-specifier-resolution=node"
+        //"--unhandled-rejections=strict"
+      ],
+      // "preLaunchTask": "tsc: build - tsconfig.json",
+      // "sourceMaps": true,
+      "smartStep": true,
+      "console": "integratedTerminal",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Log out to registry",
+      "stopOnEntry": false,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/src/app.js",
+      "args": [
+        "registry",
+        "auth",
+        "logout",
+        "--destination",
+        "/Users/anak/YourouNak/development/servable/_lab/test",
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "envFile": "${workspaceFolder}/.env.development",
+      "runtimeArgs": [
+        // "--trace-warnings",
+        "--require=dotenv/config",
+        "--nolazy",
+        "--expose-gc",
+        "--inspect-brk",
+        "--experimental-modules",
+        "--es-module-specifier-resolution=node",
+        "--experimental-specifier-resolution=node"
+        //"--unhandled-rejections=strict"
+      ],
+      // "preLaunchTask": "tsc: build - tsconfig.json",
+      // "sourceMaps": true,
+      "smartStep": true,
+      "console": "integratedTerminal",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Eject a protocol",
+      "stopOnEntry": false,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/src/app.js",
+      "args": [
+        "protocol",
+        "eject",
+        "--destination",
+        "/Users/anak/YourouNak/development/servable/_lab",
+        "--appPath",
+        "/Users/anak/YourouNak/development/servable/core/registry/backend/main",
+        "--protocolPath",
+        "/Users/anak/YourouNak/development/servable/core/registry/backend/main/lib/protocols/@servable-community/commentable",
+        "--description",
+        "Commentable protocol"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "envFile": "${workspaceFolder}/.env.development",
+      "runtimeArgs": [
+        // "--trace-warnings",
+        "--require=dotenv/config",
+        "--nolazy",
+        "--expose-gc",
+        "--inspect-brk",
+        "--experimental-modules",
+        "--es-module-specifier-resolution=node",
+        "--experimental-specifier-resolution=node"
+        //"--unhandled-rejections=strict"
+      ],
+      // "preLaunchTask": "tsc: build - tsconfig.json",
+      // "sourceMaps": true,
+      "smartStep": true,
+      "console": "integratedTerminal",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Create a new protocol",
+      "stopOnEntry": false,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/src/app.js",
+      "args": [
+        "protocol",
+        "new",
+        "--destination",
+        "/Users/anak/YourouNak/development/servable/_lab",
+        "--protocolId",
+        "@adoucoure/taggable",
+        "--protocolDescription",
+        "Tag protocol",
+        //"-q"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "envFile": "${workspaceFolder}/.env.development",
+      "runtimeArgs": [
+        // "--trace-warnings",
+        "--require=dotenv/config",
+        "--nolazy",
+        "--expose-gc",
+        "--inspect-brk",
+        "--experimental-modules",
+        "--es-module-specifier-resolution=node",
+        "--experimental-specifier-resolution=node"
+        //"--unhandled-rejections=strict"
+      ],
+      // "preLaunchTask": "tsc: build - tsconfig.json",
+      // "sourceMaps": true,
+      "smartStep": true,
+      "console": "integratedTerminal",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Add a local protocol to a Servable app",
+      "stopOnEntry": false,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/src/app.js",
+      "args": [
+        "protocol",
+        "add",
+        "--protocolId",
+        "@adoucoure/taggable",
+        "--protocolDescription",
+        "Tag protocol",
+        "--appPath",
         "/Users/anak/YourouNak/development/servable/core/cli/_archive/main"
-// "./_archive/main",
-// "-q"
-],
-"env": {
-"NODE_ENV": "development"
-},
-"envFile": "${workspaceFolder}/.env.development",
-"runtimeArgs": [
-// "--trace-warnings",
-"--require=dotenv/config",
-"--nolazy",
-"--expose-gc",
-"--inspect-brk",
-"--experimental-modules",
-"--es-module-specifier-resolution=node",
-"--experimental-specifier-resolution=node"
-//"--unhandled-rejections=strict"
-],
-// "preLaunchTask": "tsc: build - tsconfig.json",
-// "sourceMaps": true,
-"smartStep": true,
-"console": "integratedTerminal",
-"outFiles": [
-"${workspaceFolder}/build/**/*.js"
-]
-},
-{
-"type": "node",
-"request": "launch",
-"name": "New app",
-"stopOnEntry": false,
-"skipFiles": [
-"<node_internals>/**"
-],
-"program": "${workspaceFolder}/src/app.js",
-"args": [
-"app",
-"new",
-"-q",
-"--adapter",
-"@servable/parse-server-engine",
-"--destination",
-"/Users/anak/YourouNak/development/servable/_lab/test",
-"--appId",
-"MyApp",
-"--appMasterKey",
-"OINOINS-DSODISOIN-EZOINOZN",
-// "-h",
-// "-n",
-// "Mix",
-// "pp"
-],
-"env": {
-"NODE_ENV": "development"
-},
-"envFile": "${workspaceFolder}/.env.development",
-"runtimeArgs": [
-// "--trace-warnings",
-"--require=dotenv/config",
-"--nolazy",
-"--expose-gc",
-"--inspect-brk",
-"--experimental-modules",
-"--es-module-specifier-resolution=node",
-"--experimental-specifier-resolution=node"
-//"--unhandled-rejections=strict"
-],
-// "preLaunchTask": "tsc: build - tsconfig.json",
-// "sourceMaps": true,
-"smartStep": true,
-"console": "integratedTerminal",
-"outFiles": [
-"${workspaceFolder}/build/**/*.js"
-]
-},
-{
-"type": "node",
-"request": "launch",
-"name": "Eject feature",
-"stopOnEntry": false,
-"skipFiles": [
-"<node_internals>/**"
-],
-"program": "${workspaceFolder}/src/app.js",
-"args": [
-"feature",
-"eject",
-],
-"env": {
-"NODE_ENV": "development"
-},
-"envFile": "${workspaceFolder}/.env.development",
-"runtimeArgs": [
-// "--trace-warnings",
-"--require=dotenv/config",
-"--nolazy",
-"--expose-gc",
-"--inspect-brk",
-"--experimental-modules",
-"--es-module-specifier-resolution=node",
-"--experimental-specifier-resolution=node"
-//"--unhandled-rejections=strict"
-],
-// "preLaunchTask": "tsc: build - tsconfig.json",
-// "sourceMaps": true,
-"smartStep": true,
-"console": "integratedTerminal",
-"outFiles": [
-"${workspaceFolder}/build/**/*.js"
-]
-},
-{
-"type": "node",
-"request": "launch",
-"name": "Submit a feature",
-"stopOnEntry": false,
-"skipFiles": [
-"<node_internals>/**"
-],
-"program": "${workspaceFolder}/src/app.js",
-"args": [
-"feature",
-"community",
-"submit",
-"--featurePath",
-"./_archive/main/lib/features/@servable-community/commentable"
-// "-q"
-],
-"env": {
-"NODE_ENV": "development"
-},
-"envFile": "${workspaceFolder}/.env.development",
-"runtimeArgs": [
-// "--trace-warnings",
-"--require=dotenv/config",
-"--nolazy",
-"--expose-gc",
-"--inspect-brk",
-"--experimental-modules",
-"--es-module-specifier-resolution=node",
-"--experimental-specifier-resolution=node"
-//"--unhandled-rejections=strict"
-],
-// "preLaunchTask": "tsc: build - tsconfig.json",
-// "sourceMaps": true,
-"smartStep": true,
-"console": "integratedTerminal",
-"outFiles": [
-"${workspaceFolder}/build/**/*.js"
-]
-},
-{
-"type": "node",
-"request": "launch",
-"name": "Use a community feature",
-"stopOnEntry": false,
-"skipFiles": [
-"<node_internals>/**"
-],
-"program": "${workspaceFolder}/src/app.js",
-"args": [
-"feature",
-"community",
-"use",
-"--appPath",
-"/Users/anak/YourouNak/development/servable/core/cli/_archive/main",
-"--classPath",
-"/Users/anak/YourouNak/development/servable/core/cli/_archive/main/lib/features/@servable-community/commentable/classes/commentableentry",
-"--featureIdAutoComplete",
-"@servable-community/shipable"
-// "-q"
-],
-"env": {
-"NODE_ENV": "development"
-},
-"envFile": "${workspaceFolder}/.env.development",
-"runtimeArgs": [
-// "--trace-warnings",
-"--require=dotenv/config",
-"--nolazy",
-"--expose-gc",
-"--inspect-brk",
-"--experimental-modules",
-"--es-module-specifier-resolution=node",
-"--experimental-specifier-resolution=node"
-//"--unhandled-rejections=strict"
-],
-// "preLaunchTask": "tsc: build - tsconfig.json",
-// "sourceMaps": true,
-"smartStep": true,
-"console": "integratedTerminal",
-"outFiles": [
-"${workspaceFolder}/build/**/*.js"
-]
-},
-{
-"type": "node",
-"request": "launch",
-"name": "Add a class to a feature",
-"stopOnEntry": false,
-"skipFiles": [
-"<node_internals>/**"
-],
-"program": "${workspaceFolder}/src/app.js",
-"args": [
-"class",
-"add",
-"--featurePath",
-"/Users/anak/YourouNak/development/servable/core/cli/_archive/main/lib/app"
-// "-q"
-],
-"env": {
-"NODE_ENV": "development"
-},
-"envFile": "${workspaceFolder}/.env.development",
-"runtimeArgs": [
-// "--trace-warnings",
-"--require=dotenv/config",
-"--nolazy",
-"--expose-gc",
-"--inspect-brk",
-"--experimental-modules",
-"--es-module-specifier-resolution=node",
-"--experimental-specifier-resolution=node"
-//"--unhandled-rejections=strict"
-],
-// "preLaunchTask": "tsc: build - tsconfig.json",
-// "sourceMaps": true,
-"smartStep": true,
-"console": "integratedTerminal",
-"outFiles": [
-"${workspaceFolder}/build/**/*.js"
-]
-},
-{
-"type": "node",
-"request": "launch",
-"name": "Document a feature",
-"stopOnEntry": false,
-"skipFiles": [
-"<node_internals>/**"
-],
-"program": "${workspaceFolder}/src/app.js",
-"args": [
-"feature",
-"document",
-"--featurePath",
-"/Users/anak/YourouNak/development/servable/core/cli/_archive/main/lib/features/@servable-community/shipable"
-// "-q"
-],
-"env": {
-"NODE_ENV": "development"
-},
-"envFile": "${workspaceFolder}/.env.development",
-"runtimeArgs": [
-// "--trace-warnings",
-"--require=dotenv/config",
-"--nolazy",
-"--expose-gc",
-"--inspect-brk",
-"--experimental-modules",
-"--es-module-specifier-resolution=node",
-"--experimental-specifier-resolution=node"
-//"--unhandled-rejections=strict"
-],
-// "preLaunchTask": "tsc: build - tsconfig.json",
-// "sourceMaps": true,
-"smartStep": true,
-"console": "integratedTerminal",
-"outFiles": [
-"${workspaceFolder}/build/**/*.js"
-]
-},
-]
+        // "./_archive/main",
+        // //"-q"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "envFile": "${workspaceFolder}/.env.development",
+      "runtimeArgs": [
+        // "--trace-warnings",
+        "--require=dotenv/config",
+        "--nolazy",
+        "--expose-gc",
+        "--inspect-brk",
+        "--experimental-modules",
+        "--es-module-specifier-resolution=node",
+        "--experimental-specifier-resolution=node"
+        //"--unhandled-rejections=strict"
+      ],
+      // "preLaunchTask": "tsc: build - tsconfig.json",
+      // "sourceMaps": true,
+      "smartStep": true,
+      "console": "integratedTerminal",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "New app",
+      "stopOnEntry": false,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/src/app.js",
+      "args": [
+        "app",
+        "new",
+        //"-q",
+        "--adapter",
+        "@servable/parse-server-adapter",
+        "--destination",
+        "/Users/anak/YourouNak/development/servable/_lab/test",
+        "--appId",
+        "MyApp",
+        "--appMasterKey",
+        "OINOINS-DSODISOIN-EZOINOZN",
+        // "-h",
+        // "-n",
+        // "Mix",
+        // "pp"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "envFile": "${workspaceFolder}/.env.development",
+      "runtimeArgs": [
+        // "--trace-warnings",
+        "--require=dotenv/config",
+        "--nolazy",
+        "--expose-gc",
+        "--inspect-brk",
+        "--experimental-modules",
+        "--es-module-specifier-resolution=node",
+        "--experimental-specifier-resolution=node"
+        //"--unhandled-rejections=strict"
+      ],
+      // "preLaunchTask": "tsc: build - tsconfig.json",
+      // "sourceMaps": true,
+      "smartStep": true,
+      "console": "integratedTerminal",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Eject protocol",
+      "stopOnEntry": false,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/src/app.js",
+      "args": [
+        "protocol",
+        "eject",
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "envFile": "${workspaceFolder}/.env.development",
+      "runtimeArgs": [
+        // "--trace-warnings",
+        "--require=dotenv/config",
+        "--nolazy",
+        "--expose-gc",
+        "--inspect-brk",
+        "--experimental-modules",
+        "--es-module-specifier-resolution=node",
+        "--experimental-specifier-resolution=node"
+        //"--unhandled-rejections=strict"
+      ],
+      // "preLaunchTask": "tsc: build - tsconfig.json",
+      // "sourceMaps": true,
+      "smartStep": true,
+      "console": "integratedTerminal",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Submit a protocol",
+      "stopOnEntry": false,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/src/app.js",
+      "args": [
+        "protocol",
+        "community",
+        "submit",
+        "--protocolPath",
+        "./_archive/main/lib/protocols/@servable-community/commentable"
+        // //"-q"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "envFile": "${workspaceFolder}/.env.development",
+      "runtimeArgs": [
+        // "--trace-warnings",
+        "--require=dotenv/config",
+        "--nolazy",
+        "--expose-gc",
+        "--inspect-brk",
+        "--experimental-modules",
+        "--es-module-specifier-resolution=node",
+        "--experimental-specifier-resolution=node"
+        //"--unhandled-rejections=strict"
+      ],
+      // "preLaunchTask": "tsc: build - tsconfig.json",
+      // "sourceMaps": true,
+      "smartStep": true,
+      "console": "integratedTerminal",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Use a community protocol",
+      "stopOnEntry": false,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/src/app.js",
+      "args": [
+        "protocol",
+        "community",
+        "use",
+        "--appPath",
+        "/Users/anak/YourouNak/development/servable/core/cli/_archive/main",
+        "--classPath",
+        "/Users/anak/YourouNak/development/servable/core/cli/_archive/main/lib/protocols/@servable-community/commentable/classes/commentableentry",
+        "--protocolIdAutoComplete",
+        "@servable-community/shipable"
+        // //"-q"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "envFile": "${workspaceFolder}/.env.development",
+      "runtimeArgs": [
+        // "--trace-warnings",
+        "--require=dotenv/config",
+        "--nolazy",
+        "--expose-gc",
+        "--inspect-brk",
+        "--experimental-modules",
+        "--es-module-specifier-resolution=node",
+        "--experimental-specifier-resolution=node"
+        //"--unhandled-rejections=strict"
+      ],
+      // "preLaunchTask": "tsc: build - tsconfig.json",
+      // "sourceMaps": true,
+      "smartStep": true,
+      "console": "integratedTerminal",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Add a class to a protocol",
+      "stopOnEntry": false,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/src/app.js",
+      "args": [
+        "class",
+        "add",
+        "--protocolPath",
+        "/Users/anak/YourouNak/development/servable/core/cli/_archive/main/lib/app"
+        // //"-q"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "envFile": "${workspaceFolder}/.env.development",
+      "runtimeArgs": [
+        // "--trace-warnings",
+        "--require=dotenv/config",
+        "--nolazy",
+        "--expose-gc",
+        "--inspect-brk",
+        "--experimental-modules",
+        "--es-module-specifier-resolution=node",
+        "--experimental-specifier-resolution=node"
+        //"--unhandled-rejections=strict"
+      ],
+      // "preLaunchTask": "tsc: build - tsconfig.json",
+      // "sourceMaps": true,
+      "smartStep": true,
+      "console": "integratedTerminal",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ]
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Document a protocol",
+      "stopOnEntry": false,
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/src/app.js",
+      "args": [
+        "protocol",
+        "document",
+        "--protocolPath",
+        "/Users/anak/YourouNak/development/servable/core/cli/_archive/main/lib/protocols/@servable-community/shipable"
+        // //"-q"
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "envFile": "${workspaceFolder}/.env.development",
+      "runtimeArgs": [
+        // "--trace-warnings",
+        "--require=dotenv/config",
+        "--nolazy",
+        "--expose-gc",
+        "--inspect-brk",
+        "--experimental-modules",
+        "--es-module-specifier-resolution=node",
+        "--experimental-specifier-resolution=node"
+        //"--unhandled-rejections=strict"
+      ],
+      // "preLaunchTask": "tsc: build - tsconfig.json",
+      // "sourceMaps": true,
+      "smartStep": true,
+      "console": "integratedTerminal",
+      "outFiles": [
+        "${workspaceFolder}/build/**/*.js"
+      ]
+    },
+  ]
 }

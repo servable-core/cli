@@ -1,4 +1,3 @@
-import Chunk from '../../lib/chunks/class/content/index.js'
 
 export default ({
   _clinextType: "command",
@@ -28,12 +27,6 @@ export default ({
   ],
   example: "$0 class new",
   handler: async () => {
-    let pass = await Chunk.ask()
 
-    if (!pass) {
-      return
-    }
-
-    await Chunk.write()
   },
 })
