@@ -53,7 +53,7 @@ export default async () => {
     CliNext.payload.featureHowTo = ""
   }
 
-  // if (!CliNext.payload.featureFrameworkBridge) {
+  // if (!CliNext.payload.featureEngine) {
   //   CliNext.payload.featureHomepageUrl = "@servable-community/parse-server-engine"
   // }
 

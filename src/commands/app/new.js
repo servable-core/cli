@@ -26,7 +26,7 @@ export default ({
     },
     {
       name: 'bridgeframeworkId',
-      message: 'Framework bridge to use',
+      message: 'Engine to use',
       validators: [{ id: 'nonempty', params: { maxParams: 12 } }]
     },
     {
