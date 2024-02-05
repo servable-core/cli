@@ -1045,10 +1045,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@clinext/sdk@^1.20.2":
-  version "1.20.2"
-  resolved "https://registry.yarnpkg.com/@clinext/sdk/-/sdk-1.20.2.tgz#02e48d2b20821b74305807c5bd2030c32f635fdc"
-  integrity sha512-X8Q7ngoVDT/v9zepDR84Bw7hUajPMCN8xBLyBr4BmVl71f4bvCuKG3EjcON5qWUChvhZiXOn742ZF5JT01vWpQ==
+"@clinext/sdk@^1.20.3":
+  version "1.20.3"
+  resolved "https://registry.yarnpkg.com/@clinext/sdk/-/sdk-1.20.3.tgz#79c23f17be6e2200d4081d7b4ef01e314dc64e53"
+  integrity sha512-n9FONbVeTbOycJEjzNACIQ6PfsLAwHUYNPu20BPSV45c6G/hgENg7VZHjydb29mx7nY53g/upzN+IjcykYhJjQ==
   dependencies:
     "@inkjs/ui" "^1.0.0"
     axios "^1.6.1"
