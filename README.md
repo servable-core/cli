@@ -41,3 +41,6 @@ Usage:
 
 
 ```
+
+
+A full documentation is available at [https://docs.servable.app](https://docs.servable.app)
