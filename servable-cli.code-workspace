@@ -1,17 +1,17 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../../../packages/adoucoure/clinext/sdk/src"
-		}
-	],
-	"settings": {
-		"workbench.colorCustomizations": {
-			"activityBar.background": "#0F332B",
-			"titleBar.activeBackground": "#15483C",
-			"titleBar.activeForeground": "#F5FCFB"
-		}
-	}
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "../../../clinext/sdk/src"
+    }
+  ],
+  "settings": {
+    "workbench.colorCustomizations": {
+      "activityBar.background": "#0F332B",
+      "titleBar.activeBackground": "#15483C",
+      "titleBar.activeForeground": "#F5FCFB"
+    }
+  }
 }

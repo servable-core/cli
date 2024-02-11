@@ -1,4 +1,5 @@
-import { launchServable } from "@servable/engine"
-import servableEngineConfig from './servable.config.js'
+import servableConfig from './servable.config.js'
+import { launch } from "@servable/server"
+import engine from "@servable/parse-server-engine"
 
-await launchServable({ servableEngineConfig })
+await launch({ servableConfig, engine })
