@@ -3,7 +3,7 @@ export default ({
   _clinextType: "command",
   name: 'test',
   description: 'Test a feature',
-  options: [
+  questions: [
     {
       name: 'featurePath',
       message: "Feature to add a model to",

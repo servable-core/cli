@@ -4,6 +4,6 @@ export default ({
   position: 0,
   name: 'feature',
   description: 'Feature management',
-  options: [
+  questions: [
   ],
 })

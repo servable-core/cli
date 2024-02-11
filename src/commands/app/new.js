@@ -5,7 +5,7 @@ export default ({
   name: 'new',
   position: 0,
   description: `Create a Servable app 🐻`,
-  options: [
+  questions: [
     {
       name: 'appName',
       type: 'string',

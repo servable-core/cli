@@ -8,7 +8,7 @@ export default ({
   _clinextType: "command",
   name: 'eject',
   description: 'Eject a feature 🐝',
-  options: [
+  questions: [
     {
       name: 'appPath',
       message: "App to eject from",

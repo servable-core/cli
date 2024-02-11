@@ -4,7 +4,7 @@ export default ({
   _clinextType: "command",
   name: 'document',
   description: 'Generate feature documentation 🐝',
-  options: [
+  questions: [
     {
       name: 'featurePath',
       message: "Feature to document",

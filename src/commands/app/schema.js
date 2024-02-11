@@ -4,7 +4,7 @@ export default ({
   _clinextType: "command",
   name: 'schema',
   description: 'Generate schema documentation 🐝',
-  options: [
+  questions: [
     {
       name: 'appPath',
       message: "App to add a feature to",

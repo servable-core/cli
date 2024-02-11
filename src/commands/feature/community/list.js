@@ -5,7 +5,7 @@ export default ({
   _clinextType: 'command',
   name: 'list',
   description: `List features`,
-  options: [
+  questions: [
   ],
   handler: async () => {
     const isLoggedIn = await loginIfNecessary()

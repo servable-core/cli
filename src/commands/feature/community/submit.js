@@ -5,7 +5,7 @@ export default ({
   _clinextType: 'command',
   name: 'submit',
   description: `Submit a feature`,
-  options: [
+  questions: [
     {
       name: 'featurePath',
       message: "Feature to submit",

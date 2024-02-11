@@ -4,7 +4,7 @@ export default ({
   _clinextType: 'command',
   name: 'login',
   description: `Login 🐻`,
-  options: [
+  questions: [
     {
       name: 'registryUsername',
       storeValue: true,

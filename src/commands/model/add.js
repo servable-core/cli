@@ -4,7 +4,7 @@ export default ({
   _clinextType: "command",
   name: 'add',
   description: 'Add an empty model to a feature 🐝',
-  options: [
+  questions: [
     {
       name: 'featurePath',
       message: "Feature to add a model to",

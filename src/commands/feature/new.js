@@ -4,7 +4,7 @@ export default ({
   _clinextType: "command",
   name: 'new',
   description: 'Create a feature project 🐝',
-  options: [
+  questions: [
     {
       name: 'featureId',
       validators: [{

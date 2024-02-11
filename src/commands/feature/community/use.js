@@ -6,7 +6,7 @@ export default ({
   _clinextType: 'command',
   name: 'use',
   description: `Use a feature`,
-  options: [
+  questions: [
     {
       name: 'featureIdAutoComplete',
       validators: [{

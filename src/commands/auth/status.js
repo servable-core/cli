@@ -5,7 +5,7 @@ export default ({
   _clinextType: 'command',
   name: 'status',
   description: `Authentication status`,
-  options: [
+  questions: [
   ],
   handler: async () => {
     const _isLoggedIn = await isLoggedIn()

@@ -6,7 +6,7 @@ export default ({
   _clinextType: 'command',
   name: 'logout',
   description: `Logout 🐻`,
-  options: [
+  questions: [
     {
       name: 'registryConfirmLogout',
       message: "Logout of Servable",

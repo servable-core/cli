@@ -4,7 +4,7 @@ export default ({
   position: 1,
   name: 'app',
   description: `App management 🐻`,
-  options: [
+  questions: [
   ],
   example: "$0 app new --appName='MyApp' --adapter='@servable/cli'",
 })

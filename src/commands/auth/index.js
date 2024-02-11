@@ -6,7 +6,7 @@ export default ({
   position: 0,
   name: 'auth',
   description: `Authentication`,
-  options: [
+  questions: [
   ],
   handler: async () => {
     const _isLoggedIn = await isLoggedIn()

@@ -4,7 +4,7 @@ export default ({
   _clinextType: "command",
   name: 'add',
   description: 'Add an empty feature to a Servable app 🐝',
-  options: [
+  questions: [
     {
       name: 'appPath',
       message: "App to add a feature to",
