@@ -4,5 +4,7 @@ export default ({
   name: "@servable/cli",
   usage: "servable <command>",
   epilog: "Made by servable",
-  extensions: []
+  extensions: [
+    "@clinext/chunks-extension"
+  ]
 })
