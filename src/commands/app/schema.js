@@ -38,7 +38,7 @@ export default ({
       },
     ])
 
-    CliNext.payload.destination = `${CliNext.payload.appPath}/lib/features/${CliNext.payload.featureId}`
+    CliNext.payload.destination = `${CliNext.payload.appPath}/features/${CliNext.payload.featureId}`
 
     let pass = await ChunkFeatureContent.ask()
 

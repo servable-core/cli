@@ -58,17 +58,17 @@ export default ({
       {
         id: 'isnumber', params: { maxParams: 12 }
       },],
-      transformers: {
-        in: [{
-          id: "getPort"
-        }],
+      transformers: [{
+        modes: ['in'],
+        id: "getPort"
+      },
         // out: [{
         //   id: "theme"
         // },
         // {
         //   template: "New value: <%= value %>",
         // }]
-      },
+      ],
     },
     // {
     //   name: 'appId',

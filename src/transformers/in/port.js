@@ -3,7 +3,7 @@ import getPortNear from "../../lib/port/getPortNear.js"
 
 export default ({
   type: "tranformer",
-  position: "in",
+  modes: ["in"],
   id: "getPort",
   handler: async ({ toolbox, question, item }) => {
     const { params = {} } = item

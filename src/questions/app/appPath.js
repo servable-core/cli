@@ -15,9 +15,9 @@ export default ({
   validators: [{
     id: 'isServableApp'
   }],
-  transformers: {
-    display: [{
-      id: 'isFolderServableApp'
+  transformers:
+    [{
+      id: 'isFolderServableApp',
+      modes: ['display'],
     }]
-  }
 })

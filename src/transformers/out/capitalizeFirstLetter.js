@@ -2,7 +2,7 @@ import capitalizeFirstLetter from '../../lib/newlib/capitalizeFirstLetter.js'
 
 export default ({
   type: "tranformer",
-  position: "out",
+  modes: ["out"],
   id: "capitalizeFirstLetter",
   handler: ({ input, }) => {
     return capitalizeFirstLetter(input)

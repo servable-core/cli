@@ -44,7 +44,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Log out to registry",
+      "name": "Log out of registry",
       "stopOnEntry": false,
       "skipFiles": [
         "<node_internals>/**"

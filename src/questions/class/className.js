@@ -6,14 +6,12 @@ export default ({
   type: 'string',
   promptType: 'input',
   message: 'Classname',
-  transformers: {
-    display: [{
+  transformers: [
+    {
+      modes: ['out', 'display'],
       handler: ({ input }) => capitalizeFirstLetter(input)
-    }],
-    out: [{
-      handler: async ({ input }) => capitalizeFirstLetter(input)
-    }]
-  }
+    }
+  ]
 })
 
 const capitalizeFirstLetter = (string) => {

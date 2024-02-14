@@ -5,7 +5,7 @@ import isFolderClassSync from "../../lib/newlib/isFolderClassSync.js"
 
 export default ({
   type: "tranformer",
-  position: "display",
+  modes: ["display"],
   id: "isFolderClass",
   handler: ({ toolbox, input, item }) => {
     if (!input || !input.length) {

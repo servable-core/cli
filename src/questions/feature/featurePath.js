@@ -15,10 +15,11 @@ export default ({
   validators: [{
     id: 'isFeature'
   }],
-  transformers: {
-    display: [{
-      id: 'isFolderFeature'
-    }]
-  }
+  transformers: [
+    {
+      modes: ['display'],
+      id: "isFolderFeature"
+    }
+  ]
 })
 

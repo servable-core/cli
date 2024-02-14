@@ -14,11 +14,10 @@ export default ({
     {
       name: 'destination',
       message: "Where to create",
-      transformers: {
-        out: [{
-          template: `<%= destination %>/<%= featureId %>`
-        }]
-      }
+      transformers: [{
+        modes: ['out'],
+        template: `<%= destination %>/<%= featureId %>`
+      }]
       // validators: [{ id: 'nonempty' }]
     },
     {

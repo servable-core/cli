@@ -4,7 +4,7 @@ import isFolderServableAppSync from "../../lib/lib/isFolderServableAppSync.js"
 
 export default ({
   type: "tranformer",
-  position: "display",
+  modes: ["display"],
   id: "isFolderServableApp",
   handler: ({ toolbox, input, item }) => {
     if (!input || !input.length) {

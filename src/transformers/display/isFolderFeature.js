@@ -4,7 +4,7 @@ import isFolderFeatureSync from "../../lib/lib/isFolderFeatureSync.js"
 
 export default ({
   type: "tranformer",
-  position: "display",
+  modes: ["display"],
   id: "isFolderFeature",
   handler: ({ toolbox, input, item }) => {
     if (!input || !input.length) {
