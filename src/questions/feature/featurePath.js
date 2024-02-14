@@ -1,6 +1,6 @@
 
 export default ({
-  _clinextType: "option",
+  _clinextType: "question",
   type: 'string',
   message: "Choose a feature",
   promptType: "file-tree-selection",

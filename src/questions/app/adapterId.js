@@ -1,6 +1,6 @@
 
 export default ({
-  _clinextType: "option",
+  _clinextType: "question",
   type: 'string',
   name: 'bridgeframeworkId',
   promptType: 'autocomplete',

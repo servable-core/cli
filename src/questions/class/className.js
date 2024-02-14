@@ -1,7 +1,7 @@
 // import capitalizeFirstLetter from "../../lib/newlib/capitalizeFirstLetter"
 
 export default ({
-  _clinextType: "option",
+  _clinextType: "question",
   name: 'className',
   type: 'string',
   promptType: 'input',

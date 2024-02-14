@@ -1,7 +1,7 @@
 import path from "path"
 
 export default ({
-  _clinextType: "option",
+  _clinextType: "question",
   type: 'string',
   alias: 'd',
   message: "Choose a destination",

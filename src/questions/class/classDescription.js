@@ -1,6 +1,6 @@
 
 export default ({
-  _clinextType: "option",
+  _clinextType: "question",
   name: 'classDescription',
   type: 'string',
   promptType: 'input',

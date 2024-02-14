@@ -1,5 +1,5 @@
 export default ({
-  _clinextType: "option",
+  _clinextType: "question",
   name: 'authorUrl',
   type: 'string',
   promptType: 'input',

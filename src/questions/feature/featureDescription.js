@@ -1,6 +1,6 @@
 
 export default ({
-  _clinextType: "option",
+  _clinextType: "question",
   name: 'featureDescription',
   type: 'string',
   promptType: 'input',
