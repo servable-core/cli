@@ -310,7 +310,7 @@
         "community",
         "submit",
         "--featurePath",
-        "./_archive/main/features/@servable-community/framable"
+        "./_archive/main/features/@servable-community/commentable"
         // //"-q"
       ],
       "env": {

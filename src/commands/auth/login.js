@@ -8,7 +8,7 @@ export default ({
     {
       name: 'registryUsername',
       storeValue: true,
-      loadFromStoreOnInit: true,
+      loadValueFromStore: true,
       storeDomain: CliNext.env.SERVABLE_API_HOST
     },
     {
@@ -18,7 +18,7 @@ export default ({
     {
       name: 'registrySessionToken',
       storeValue: true,
-      loadFromStoreOnInit: true,
+      loadValueFromStore: true,
       storeDomain: CliNext.env.SERVABLE_API_HOST
     },
   ],

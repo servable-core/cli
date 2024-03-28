@@ -14,7 +14,6 @@ export default ({
       defaultValue: 'MyAppName',
       message: 'App name',
       validators: [{ id: 'nonempty', params: { maxParams: 12 } }]
-
     },
     {
       name: 'appDescription',

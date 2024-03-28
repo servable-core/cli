@@ -4,7 +4,7 @@
       "path": "."
     },
     {
-      "path": "../../../clinext/sdk/src"
+      "path": "../../clinext/sdk/src"
     }
   ],
   "settings": {
