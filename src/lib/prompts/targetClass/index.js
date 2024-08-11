@@ -5,15 +5,15 @@ import chalk from "chalk"
 import isFolderClass from "./lib/isFolderClass.js"
 // import getServablePackage from "./lib/getServablePackage.js"
 import path from "path"
-import targetFeature from "../targetFeature/index.js"
+import targetProtocol from "../targetProtocol/index.js"
 import askForGeneric from "../utils/askForGeneric.js"
 
 export default async (props) => {
     const { toolbox, payload,
         includeCoreClasses = true,
-        appFeatureMessage = `Add class to app feature?`,
-        includeFeatureAsAClass = false,
-        forFeatures = 'Do you want to target features or classes'
+        appProtocolMessage = `Add class to app protocol?`,
+        includeProtocolAsAClass = false,
+        forProtocols = 'Do you want to target protocols or classes'
     } = props
 
     let value = toolbox.options['targetClass']
@@ -35,30 +35,30 @@ export default async (props) => {
 
         // const config = await getServablePackage(originalDestinationPath)
         // payload.desiredWriteDestinationPath = ''
-        toolbox.log(chalk.italic(`→ The class will be added to the feature in the current folder.\n`))
+        toolbox.log(chalk.italic(`→ The class will be added to the protocol in the current folder.\n`))
         return
     }
 
-    if (includeFeatureAsAClass) {
+    if (includeProtocolAsAClass) {
         await askForGeneric({
             ...props, options: {
                 ...props.options,
                 type: 'confirm',
-                name: 'forFeatures',
-                message: forFeatures,
-                // message: `Add class to ${payload.targetApp} app feature?`,
+                name: 'forProtocols',
+                message: forProtocols,
+                // message: `Add class to ${payload.targetApp} app protocol?`,
                 defaultValue: true
             }
         })
 
-        if (payload.forFeatures) {
+        if (payload.forProtocols) {
             payload.targetClassPath = `${payload.desiredWriteDestinationPathAbsolute}/lib/app`
-            payload.targetClass = payload.targetFeaturePath.split(path.sep).pop()
+            payload.targetClass = payload.targetProtocolPath.split(path.sep).pop()
             return
         }
     }
 
-    await targetFeature(props)
+    await targetProtocol(props)
     toolbox.ui.drawSectionHeader({
         toolbox,
         title: `Class choice 🚀`,
@@ -70,9 +70,9 @@ export default async (props) => {
             ...props.options,
             type: "file-tree-selection",
             name: "targetClassPath",
-            message: "Choose the class to add a feature to",
+            message: "Choose the class to add a protocol to",
             onlyShowDir: true,
-            root: `${payload.targetFeaturePath}/classes`,
+            root: `${payload.targetProtocolPath}/classes`,
             onlyShowValid: true,
             hideRoot: true,
             // validate: (name,) => {
@@ -88,5 +88,5 @@ export default async (props) => {
     // const folderPath = path.resolve(toolbox.destinationPath(), destination)
     // this.destinationRoot(folderPath)
 
-    payload.targetClass = payload.targetFeaturePath.split(path.sep).pop()
+    payload.targetClass = payload.targetProtocolPath.split(path.sep).pop()
 }

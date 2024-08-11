@@ -1,4 +1,4 @@
-import ChunkFeatureContent from '../../lib/chunks/feature/content/index.js'
+import ChunkProtocolContent from '../../lib/chunks/protocol/content/index.js'
 
 export default ({
   _clinextType: "command",
@@ -7,24 +7,24 @@ export default ({
   questions: [
     {
       name: 'appPath',
-      message: "App to add a feature to",
+      message: "App to add a protocol to",
       // validators: [{ id: 'nonempty' }]
     },
     {
-      name: 'featureId',
+      name: 'protocolId',
       validators: [{
         id: 'nonEmpty'
       }]
     },
     {
-      name: 'featureDescription',
+      name: 'protocolDescription',
     },
 
     {
       name: 'license',
     },
   ],
-  example: "$0 feature eject",
+  example: "$0 protocol eject",
   handler: async () => {
     await CliNext.prompt.ask([
       {
@@ -34,18 +34,18 @@ export default ({
 
     await CliNext.prompt.ask([
       {
-        name: 'featureId',
+        name: 'protocolId',
       },
     ])
 
-    CliNext.payload.destination = `${CliNext.payload.appPath}/features/${CliNext.payload.featureId}`
+    CliNext.payload.destination = `${CliNext.payload.appPath}/protocols/${CliNext.payload.protocolId}`
 
-    let pass = await ChunkFeatureContent.ask()
+    let pass = await ChunkProtocolContent.ask()
 
     if (!pass) {
       return
     }
 
-    await ChunkFeatureContent.write()
+    await ChunkProtocolContent.write()
   },
 })

@@ -5,7 +5,7 @@ dotenv.config()
 export default async ({ username, password }) => {
     const baseUrl = 'https://api.registry.servablecommunity.com/servable'
     // const baseUrl = 'https://api.registry.servablecommunity.com'
-    // const url = `${baseUrl}/searchFeature?searchTerm=${searchTerm}&page=${page}`
+    // const url = `${baseUrl}/searchProtocol?searchTerm=${searchTerm}&page=${page}`
     const url = `${baseUrl}/login`
 
 

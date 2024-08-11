@@ -4,14 +4,14 @@ import ChunkTriggers from '../../triggers/index.js'
 export default async (props) => {
   await CliNext.prompt.ask([
     {
-      name: 'featurePath',
+      name: 'protocolPath',
     },
   ])
 
   let passes = false
 
   passes = await ChunkIndex.ask()
-  CliNext.payload.destination = `${CliNext.payload.featurePath}/classes/${CliNext.payload.className.toLowerCase()}`
+  CliNext.payload.destination = `${CliNext.payload.protocolPath}/classes/${CliNext.payload.className.toLowerCase()}`
 
   passes = await ChunkTriggers.ask()
 

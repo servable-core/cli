@@ -6,7 +6,7 @@ import askForGeneric from "./askForGeneric.js"
 import _ from 'underscore'
 
 export default async props => {
-    const { parameter, feature } = props
+    const { parameter, protocol } = props
     if (!parameter || !parameter.prompt) {
         return
     }
@@ -25,7 +25,7 @@ export default async props => {
             ...props.options,
             type,
             name: id,
-            message: `[${feature.name}] → ${message} (${labelForVacuity(vacuity)})`,
+            message: `[${protocol.name}] → ${message} (${labelForVacuity(vacuity)})`,
             defaultValue: parameter.prompt.default,
             validate: v => {
                 const isEmpty = _.isEmpty(v)

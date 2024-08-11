@@ -1,0 +1,89 @@
+{
+  "type": "protocol",
+  "mode": "original",
+  "version": "1.0.0",
+  "apiVersion": "1.0.0",
+  "id": "<%= protocolId %>",
+  "name": "<%= protocolName %>",
+  "description": "<%= protocolDescription %>",
+  "homepage": "<%= protocolHomepageUrl %>",
+  "icon": "<%= protocolIconUrl %>",
+  "author": {
+    "name": "<%= authorName %>",
+    "email": "<%= authorEmail %>",
+    "url": "<%= authorUrl %>",
+    "github": "<%= authorGithubUrl %>"
+  },
+  "keywords": [],
+  "license": "<%= license %>",
+  "forks": {},
+  "categories": [
+    "app"
+  ],
+  "manifest": {
+    "routes": [],
+    "classes": [],
+    "seed": {},
+    "config": {},
+    "jobs": {},
+    "functions": {},
+    "class": {}
+  },
+  "adapters": [],
+  "apis": [
+    {
+      "id": "Object",
+      "version": "*"
+    },
+    {
+      "id": "Cloud",
+      "version": "*"
+    },
+    {
+      "id": "User",
+      "version": "*"
+    },
+    {
+      "id": "Role",
+      "version": "*"
+    },
+    {
+      "id": "Session",
+      "version": "*"
+    },
+    {
+      "id": "Installation",
+      "version": "*"
+    },
+    {
+      "id": "Config",
+      "version": "*"
+    },
+    {
+      "id": "LiveQuery",
+      "version": "*"
+    }
+  ],
+  "components": [
+    "server"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "<%= repositoryUrl %>"
+  },
+  "dependencies": [],
+  "usage": {
+    "howto": "<%= protocolHowTo %>",
+    "template": {
+      "id": "<%= protocolId %>",
+      "name": "<%= protocolName %>",
+      "slug": "<%= protocolDefaultSlug %>",
+      "params": {}
+    },
+    "parameters": []
+  },
+  "packages": [
+    {}
+  ],
+  "registry": {}
+}

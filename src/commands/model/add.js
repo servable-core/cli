@@ -3,11 +3,11 @@ import Chunk from '../../lib/chunks/class/content/index.js'
 export default ({
   _clinextType: "command",
   name: 'add',
-  description: 'Add an empty model to a feature 🐝',
+  description: 'Add an empty model to a protocol 🐝',
   questions: [
     {
-      name: 'featurePath',
-      message: "Feature to add a model to",
+      name: 'protocolPath',
+      message: "Protocol to add a model to",
       // validators: [{ id: 'nonempty' }]
     },
     {

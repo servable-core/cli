@@ -7,7 +7,7 @@ import path from "path"
 import chalk from "chalk"
 import capitalizeFirstLetter from "../../lib/capitalizeFirstLetter.js"
 import askForGeneric from "../utils/askForGeneric.js"
-import featureSchemaOwnClasses from "./lib/featureSchemaOwnClasses.js"
+import protocolSchemaOwnClasses from "./lib/protocolSchemaOwnClasses.js"
 
 export default async (props) => {
   const { generator, payload, options = {} } = props
@@ -18,7 +18,7 @@ export default async (props) => {
     subTitle: `Servable required class informations.`
   })
 
-  const ownClasses = await featureSchemaOwnClasses(payload.targetFeaturePath)
+  const ownClasses = await protocolSchemaOwnClasses(payload.targetProtocolPath)
 
   const nameFromFolder = generator.options['destination'] ? path.basename(generator.destinationPath()) : ''
 

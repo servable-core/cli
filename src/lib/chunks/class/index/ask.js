@@ -1,10 +1,10 @@
-import featureSchemaOwnClasses from "../../../newlib/classInformations/lib/featureSchemaOwnClasses.js"
+import protocolSchemaOwnClasses from "../../../newlib/classInformations/lib/protocolSchemaOwnClasses.js"
 
 export default async ({
-  featurePath = CliNext.payload.featurePath
+  protocolPath = CliNext.payload.protocolPath
 } = {}) => {
 
-  const ownClasses = await featureSchemaOwnClasses(featurePath)
+  const ownClasses = await protocolSchemaOwnClasses(protocolPath)
   await CliNext.prompt.ask([
     {
       name: 'className',

@@ -5,7 +5,7 @@ export default ({
   handler: async ({ input, params }) => {
     return {
       isValid: input ? isFolderServableAppSync(input) : false,
-      message: 'Not a feature folder'
+      message: 'Not a protocol folder'
     }
   }
 })

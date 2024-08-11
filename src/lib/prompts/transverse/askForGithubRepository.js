@@ -16,7 +16,7 @@ export default async (props) => {
         }
     })
 
-    const _repositoryName = repositoryName ? repositoryName : payload.completedFeatureId
+    const _repositoryName = repositoryName ? repositoryName : payload.completedProtocolId
 
     payload.repositoryUrl = `https://github.com/${payload.githubUsername}/${_repositoryName}`
 }

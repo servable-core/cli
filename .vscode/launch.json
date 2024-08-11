@@ -83,23 +83,23 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Eject a feature",
+      "name": "Eject a protocol",
       "stopOnEntry": false,
       "skipFiles": [
         "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/src/app.js",
       "args": [
-        "feature",
+        "protocol",
         "eject",
         "--destination",
         "/Users/anak/YourouNak/development/servable/_lab",
         "--appPath",
         "/Users/anak/YourouNak/development/servable/core/registry/backend/main",
-        "--featurePath",
-        "/Users/anak/YourouNak/development/servable/core/registry/backend/main/lib/features/@servable-community/commentable",
+        "--protocolPath",
+        "/Users/anak/YourouNak/development/servable/core/registry/backend/main/lib/protocols/@servable-community/commentable",
         "--description",
-        "Commentable feature"
+        "Commentable protocol"
       ],
       "env": {
         "NODE_ENV": "development"
@@ -127,21 +127,21 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Create a new feature",
+      "name": "Create a new protocol",
       "stopOnEntry": false,
       "skipFiles": [
         "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/src/app.js",
       "args": [
-        "feature",
+        "protocol",
         "new",
         "--destination",
         "/Users/anak/YourouNak/development/servable/_lab",
-        "--featureId",
+        "--protocolId",
         "@adoucoure/taggable",
-        "--featureDescription",
-        "Tag feature",
+        "--protocolDescription",
+        "Tag protocol",
         //"-q"
       ],
       "env": {
@@ -170,19 +170,19 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Add a local feature to a Servable app",
+      "name": "Add a local protocol to a Servable app",
       "stopOnEntry": false,
       "skipFiles": [
         "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/src/app.js",
       "args": [
-        "feature",
+        "protocol",
         "add",
-        "--featureId",
+        "--protocolId",
         "@adoucoure/taggable",
-        "--featureDescription",
-        "Tag feature",
+        "--protocolDescription",
+        "Tag protocol",
         "--appPath",
         "/Users/anak/YourouNak/development/servable/core/cli/_archive/main"
         // "./_archive/main",
@@ -263,14 +263,14 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Eject feature",
+      "name": "Eject protocol",
       "stopOnEntry": false,
       "skipFiles": [
         "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/src/app.js",
       "args": [
-        "feature",
+        "protocol",
         "eject",
       ],
       "env": {
@@ -299,18 +299,18 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Submit a feature",
+      "name": "Submit a protocol",
       "stopOnEntry": false,
       "skipFiles": [
         "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/src/app.js",
       "args": [
-        "feature",
+        "protocol",
         "community",
         "submit",
-        "--featurePath",
-        "./_archive/main/features/@servable-community/commentable"
+        "--protocolPath",
+        "./_archive/main/protocols/@servable-community/commentable"
         // //"-q"
       ],
       "env": {
@@ -339,21 +339,21 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Use a community feature",
+      "name": "Use a community protocol",
       "stopOnEntry": false,
       "skipFiles": [
         "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/src/app.js",
       "args": [
-        "feature",
+        "protocol",
         "community",
         "use",
         "--appPath",
         "/Users/anak/YourouNak/development/servable/core/cli/_archive/main",
         "--classPath",
-        "/Users/anak/YourouNak/development/servable/core/cli/_archive/main/lib/features/@servable-community/commentable/classes/commentableentry",
-        "--featureIdAutoComplete",
+        "/Users/anak/YourouNak/development/servable/core/cli/_archive/main/lib/protocols/@servable-community/commentable/classes/commentableentry",
+        "--protocolIdAutoComplete",
         "@servable-community/shipable"
         // //"-q"
       ],
@@ -383,7 +383,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Add a class to a feature",
+      "name": "Add a class to a protocol",
       "stopOnEntry": false,
       "skipFiles": [
         "<node_internals>/**"
@@ -392,7 +392,7 @@
       "args": [
         "class",
         "add",
-        "--featurePath",
+        "--protocolPath",
         "/Users/anak/YourouNak/development/servable/core/cli/_archive/main/lib/app"
         // //"-q"
       ],
@@ -422,17 +422,17 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Document a feature",
+      "name": "Document a protocol",
       "stopOnEntry": false,
       "skipFiles": [
         "<node_internals>/**"
       ],
       "program": "${workspaceFolder}/src/app.js",
       "args": [
-        "feature",
+        "protocol",
         "document",
-        "--featurePath",
-        "/Users/anak/YourouNak/development/servable/core/cli/_archive/main/lib/features/@servable-community/shipable"
+        "--protocolPath",
+        "/Users/anak/YourouNak/development/servable/core/cli/_archive/main/lib/protocols/@servable-community/shipable"
         // //"-q"
       ],
       "env": {

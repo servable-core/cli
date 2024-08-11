@@ -6,8 +6,8 @@ export default ({
   description: 'Test a model',
   questions: [
     {
-      name: 'featurePath',
-      message: "Feature to add a model to",
+      name: 'protocolPath',
+      message: "Protocol to add a model to",
       // validators: [{ id: 'nonempty' }]
     },
     {

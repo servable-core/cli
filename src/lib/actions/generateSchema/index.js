@@ -17,18 +17,18 @@ export default async (props) => {
         if (!servableConfig) {
             return
         }
-        if (!servableConfig.features) {
-            servableConfig.features = {}
+        if (!servableConfig.protocols) {
+            servableConfig.protocols = {}
         }
-        servableConfig.features.local = [
-            `${appPath}/lib/features`
-            // path.resolve(__dirname, `./features`)
+        servableConfig.protocols.local = [
+            `${appPath}/lib/protocols`
+            // path.resolve(__dirname, `./protocols`)
         ]
-        servableConfig.rootFeaturePayload = {
+        servableConfig.rootProtocolPayload = {
             type: 'app',
             id: 'app',
             // path: path.resolve(__dirname, "./app")
-            path: `${appPath}/lib/features`
+            path: `${appPath}/lib/protocols`
         }
 
         const schema = await buildSchema({ servableConfig })

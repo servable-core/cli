@@ -30,14 +30,14 @@ export default async (props) => {
         payload.desiredWriteDestinationPathAbsolute = originalDestinationPath
         payload.desiredWriteDestinationPath = payload.desiredWriteDestinationPathAbsolute.split(path.sep).pop()
 
-        toolbox.log(chalk.italic(`→ No app choice required. The feature will be added servable app in the current folder (${payload.appName}).\n`))
+        toolbox.log(chalk.italic(`→ No app choice required. The protocol will be added servable app in the current folder (${payload.appName}).\n`))
         return
     }
 
     toolbox.ui.drawSectionHeader({
         toolbox,
         title: `App choice 🚀`,
-        subTitle: `Choose the app you want to add a feature to.`
+        subTitle: `Choose the app you want to add a protocol to.`
     })
 
     await askForGeneric({

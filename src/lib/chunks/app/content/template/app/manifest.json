@@ -1,5 +1,5 @@
 {
-  "type": "feature",
+  "type": "protocol",
   "id": "app",
   "version": "1.0.0"
 }
