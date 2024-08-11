@@ -24,7 +24,7 @@ export default ({
       validators: [{ id: 'nonempty', params: { maxParams: 12 } }]
     },
     {
-      name: 'bridgeframeworkId',
+      name: 'engineId',
       message: 'Engine to use',
       validators: [{ id: 'nonempty', params: { maxParams: 12 } }]
     },

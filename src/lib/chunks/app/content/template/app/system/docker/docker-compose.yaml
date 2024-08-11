@@ -1,0 +1,114 @@
+version: "3.7"
+networks:
+  app:
+    driver: bridge
+services:
+  app-mongo:
+    image: mongo
+    restart: always
+    command: mongod --bind_ip_all
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=DATABASE_PASSWORD_TO_CHANGE
+      - MONGO_INITDB_DATABASE=app
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo/:/data/db
+    networks:
+      - app
+  # utils-mongo:
+  #   image: mongo:4
+  #   command: "--bind_ip_all --keyFile data/replica.key --replSet rs0"
+  #   restart: on-failure
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - MONGO_INITDB_ROOT_USERNAME=root
+  #     - MONGO_INITDB_ROOT_PASSWORD=DATABASE_PASSWORD_TO_CHANGE
+  #     - MONGO_INITDB_DATABASE=utils
+  #     - MONGO_REPLICA_SET_NAME=rs0
+  #   healthcheck:
+  #     test: test $$(echo "rs.initiate().ok || rs.status().ok" | mongo -u $${MONGO_INITDB_ROOT_USERNAME} -p $${MONGO_INITDB_ROOT_PASSWORD} --quiet) -eq 1
+  #     interval: 10s
+  #     start_period: 30s
+  #   ports:
+  #     - 27018:27017
+  #   volumes:
+  #     - ./utils-mongo:/data
+  #   networks:
+  #     - app
+  dashboard:
+    image: adoucoure/servable-dashboard:v1
+    restart: always
+    ports:
+      - 4084:4040
+    environment:
+      PARSE_DASHBOARD_SERVER_URL: http://localhost:1394/servable
+      PARSE_DASHBOARD_MASTER_KEY: MASTER_KEY_TO_CHANGE
+      PARSE_DASHBOARD_APP_ID: adoucoure-main
+      PARSE_DASHBOARD_APP_NAME: "adoucoure Main"
+      PARSE_DASHBOARD_USER_ID: admin
+      PARSE_DASHBOARD_USER_PASSWORD: PASSWORD_TO_CHANGE
+      PARSE_DASHBOARD_ALLOW_INSECURE_HTTP: 1
+    networks:
+      - app
+  minio:
+    image: bitnami/minio:latest
+    restart: always
+    ports:
+      - 9001:9001
+      - 9000:9000
+    environment:
+      MINIO_ROOT_USER: MINIO_USERNAME_TO_CHANGE
+      MINIO_ROOT_PASSWORD: MINIO_PASSWORD_TO_CHANGE
+      MINIO_DEFAULT_BUCKETS: primary
+    volumes:
+      - ./minio:/data
+    networks:
+      - app
+  parselivequeryserver:
+    image: adoucoure/parseserverlivequery:v1
+    restart: always
+    ports:
+      - 1392:1392
+    environment:
+      NODE_ENV: app
+      MAX_UPLOAD_SIZE: 20mb
+      SERVABLE_APP_ID: manivel
+      SERVABLE_APP_NAME: Servable Registry
+      SERVABLE_MASTER_KEY: MASTER_KEY_TO_CHANGE
+      SERVABLE_REST_API_KEY: REST_API_KEY_TO_CHANGE
+      SERVABLE_JAVASCRIPT_KEY: JAVASCRIPT_KEY_TO_CHANGE
+      SERVABLE_REDIS_LIVESERVER_DB_URI: redis://:REDIS_PWD_LS_TO_CHANGE@liveserver-redis-cache:6379
+      SERVABLE_SERVER_URL: localhost:1392
+      SERVABLE_VERBOSE: 1
+      SERVABLE_PORT: 1392
+    networks:
+      - app
+  redis-cache:
+    image: docker.io/bitnami/redis:6.2
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for app.
+      #- ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_PASSWORD=REDIS_PWD_TO_CHANGE
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis-cache:/bitnami/redis/data
+    networks:
+      - app
+  liveserver-redis-cache:
+    image: docker.io/bitnami/redis:6.2
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for app.
+      #- ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_PASSWORD=REDIS_PWD_LS_TO_CHANGE
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - 6380:6379
+    volumes:
+      - ./liveserver-redis-cache:/bitnami/redis/data
+    networks:
+      - app

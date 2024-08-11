@@ -1,9 +1,1 @@
-[
-    {
-        "key": "defaultGroup",
-        "name": "Default locale",
-        "description": "Default locale",
-        "enabled": true,
-        "isMaster": false
-    }
-]
+[]

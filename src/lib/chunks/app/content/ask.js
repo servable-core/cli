@@ -1,5 +1,5 @@
 import search from './lib/api/search.js'
-import getById from './lib/api/getById.js'
+import getEngineById from './lib/api/getById.js'
 
 export default async () => {
 
@@ -31,7 +31,7 @@ export default async () => {
   ])
 
   await CliNext.prompt.ask({
-    name: 'bridgeframeworkId',
+    name: 'engineId',
     suggestOnly: false,
     searchText: 'Searching...',
     emptyText: 'Nothing found!',
@@ -39,21 +39,31 @@ export default async () => {
     pageSize: 10,
   })
 
-  const item = await getById({ id: CliNext.payload['bridgeframeworkId'], })
-  if (!item) {
+  const engine = await getEngineById({
+    id: CliNext.payload['engineId'],
+  })
+
+  if (!engine) {
     console.log('Could not find adapter in registry.')
     return false
   }
 
-  CliNext.payload._adapter = item
-  const { index } = item
-  const hasUsage = (item && item.index && item.index.usage && item.index.usage.parameters && item.index.usage.parameters.length)
+  CliNext.payload._adapter = engine
+  const { index } = engine
+  const hasUsage = (
+    engine
+    && engine.index
+    && engine.index.usage
+    && engine.index.usage.parameters
+    && engine.index.usage.parameters.length
+  )
+
   if (hasUsage) {
     CliNext.ui.drawSectionHeader({
       title: `${index.id} parameters`,
       subTitle: `Fill this framework specific parameters.`
     })
-    await CliNext.prompt.ask(item.index.usage.parameters)
+    await CliNext.prompt.ask(engine.index.usage.parameters)
     CliNext.ui.drawSectionHeader({
       title: `---`,
     })
@@ -61,7 +71,3 @@ export default async () => {
 
   return true
 }
-
-
-
-

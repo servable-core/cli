@@ -14,7 +14,8 @@ export default async (props = {}) => {
     }
   })
 
-  if (payload._adapter && payload._adapter.dockercompose) {
+  if (payload._adapter
+    && payload._adapter.dockercompose) {
     await CliNext.fs.writeText({
       destination: `${destination}/lib/app/system/docker/docker-compose.yaml`,
       text: payload._adapter.dockercompose,

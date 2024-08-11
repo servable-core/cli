@@ -1,0 +1,19 @@
+{
+    "account-activity": {
+        "disabled": false,
+        "disableEnabled": false,
+        "alias": "account-activity",
+        "type": "transactionnal",
+        "name": "Account activity",
+        "pushNotification": {
+            "disabled": false
+        },
+        "textMessage": {
+            "disabled": false
+        },
+        "email": {
+            "disabled": false,
+            "canBeDisabled": true
+        }
+    }
+}

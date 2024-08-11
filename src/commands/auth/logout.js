@@ -16,17 +16,13 @@ export default ({
     },
   ],
   example: "$0 registry auth logout",
-  handler: async ({ toolbox, }) => {
-
-    const domain = toolbox.env.SERVABLE_API_HOST
-
-    const username = await toolbox.store.get({
+  handler: async () => {
+    const username = await CliNext.store.get({
       key: 'registryUsername',
-      domain
     })
-    let sessionToken = await toolbox.store.get({
+
+    let sessionToken = await CliNext.store.get({
       key: 'registrySessionToken',
-      domain
     })
 
     if (!username || !sessionToken) {
@@ -34,45 +30,42 @@ export default ({
       return true
     }
 
-    await toolbox.prompt.ask([
+    await CliNext.prompt.ask([
       {
         name: 'registryConfirmLogout',
       },
     ])
 
-    if (!toolbox.payload.registryConfirmLogout) {
+    if (!CliNext.payload.registryConfirmLogout) {
       console.log("Quitting")
       return
     }
 
     console.log("Logging out")
     const result = await doLogout({
-      username: toolbox.payload.registryUsername,
-      sessionToken: toolbox.payload.registrySessionToken
+      username: CliNext.payload.registryUsername,
+      sessionToken: CliNext.payload.registrySessionToken
     })
 
     if (!result) {
-      toolbox.print.info(`Could not connect to the Servable registry. Please try again later`)
+      CliNext.print.info(`Could not connect to the Servable registry. Please try again later`)
       return false
     }
 
-    toolbox.payload.registrySessionToken = null
-    toolbox.payload.registryPassword = null
-    toolbox.payload.registryUsername = null
+    CliNext.payload.registrySessionToken = null
+    CliNext.payload.registryPassword = null
+    CliNext.payload.registryUsername = null
 
-    await toolbox.store.save({
+    await CliNext.store.save({
       key: 'registryUsername',
-      domain,
       value: null
     })
-    await toolbox.store.save({
+    await CliNext.store.save({
       key: 'registrySessionToken',
-      domain,
       value: null
     })
-    await toolbox.store.save({
+    await CliNext.store.save({
       key: 'registryPassword',
-      domain,
       value: null
     })
 

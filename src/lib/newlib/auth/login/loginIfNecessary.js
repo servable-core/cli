@@ -6,8 +6,6 @@ export default async () => {
     return false
   }
 
-  const domain = CliNext.env.SERVABLE_API_HOST
-
   await CliNext.prompt.ask([
     {
       name: 'registryUsername',
@@ -35,7 +33,6 @@ export default async () => {
 
   await CliNext.store.save({
     key: 'registrySessionToken',
-    domain,
     value: CliNext.payload.registrySessionToken
   })
 
