@@ -41,8 +41,6 @@
     "semantic-release": "semantic-release",
     "acp": "git add . && npm run commit && git push",
     "commit": "git-cz",
-    "size": "size-limit",
-    "analyze": "size-limit --why",
     "start": "microbundle-crl watch --no-compress --format modern,cjs",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
@@ -60,23 +58,8 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "size-limit": [
-    {
-      "path": "dist/index.js",
-      "limit": "20 KB"
-    },
-    {
-      "path": "dist/index.modern.js",
-      "limit": "20 KB"
-    },
-    {
-      "path": "dist/index.umd.js",
-      "limit": "20 KB"
-    }
-  ],
   "dependencies": {},
   "devDependencies": {
-    "@size-limit/preset-small-lib": "^4.10.2",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.7.0",
@@ -90,7 +73,6 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.4",
     "semantic-release": "^22.0.5",
-    "size-limit": "^4.10.2",
     "@servable/tools": "^1",
     "husky": "^8.0.3"
   }

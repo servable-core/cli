@@ -26,7 +26,7 @@ export default ({
       name: 'license',
     },
   ],
-  example: "$0 class new",
+  example: "$0 model test",
   handler: async () => {
     let pass = await Chunk.ask()
 

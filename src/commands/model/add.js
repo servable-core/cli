@@ -1,4 +1,4 @@
-import Chunk from '../../lib/chunks/class/content/index.js'
+import Chunk from '../../lib/chunks/model/content/index.js'
 
 export default ({
   _clinextType: "command",
@@ -26,7 +26,7 @@ export default ({
       name: 'license',
     },
   ],
-  example: "$0 class new",
+  example: "$0 model new",
   handler: async () => {
     let pass = await Chunk.ask()
 
