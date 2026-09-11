@@ -39,5 +39,14 @@
         }
       }
     ]
+  },
+  "target": {
+    "classLevelPermissions": {
+      "protectedFields": {
+        "*": []
+      }
+    },
+    "fields": {},
+    "indexes": {}
   }
 }

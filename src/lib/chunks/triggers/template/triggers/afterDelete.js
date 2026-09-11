@@ -6,7 +6,7 @@
  * https://docs.servable.app/docs/protocols/api/triggers
  * https://docs.parseplatform.org/cloudcode/guide/#delete-triggers
  * @return {void} Always returns void.
- * @param {Object} request Parse server request.
+ * @param {Object} request The engine's cloud function request object.
  */
 
 export default async ({ request }) => {

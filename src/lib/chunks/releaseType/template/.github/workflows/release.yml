@@ -1,5 +1,3 @@
-# https://github.com/parse-community/parse-server/blob/alpha/.github/workflows/ci.yml
-
 name: Release
 
 on:

@@ -42,6 +42,26 @@ Usage:
 
 ```
 
+### Schema
 
+Each protocol (and the app itself) keeps its data schema in a single, flat `schema.json` at its
+root - no version folders, no migration scripts to write by hand. It has two parts: `managed`
+(the classes/fields this protocol owns) and `target` (fields, indexes, and class-level
+permissions on classes owned elsewhere).
+
+```bash
+servable schema build              # compile the app's schema artifact from every protocol's schema.json
+servable schema plan               # show what changed since the last committed artifact
+servable schema plan --ci          # same, but exits non-zero on any breaking change - for a CI/build step
+servable schema apply              # commit the artifact - refuses if it contains any breaking change
+servable schema contract --reason="why this is safe"   # remove a field/class that was already marked deprecated
+```
+
+The compiled artifact (`servable.schema.json`) is meant to be committed alongside your
+`schema.json` changes, the same way a lockfile is. A running app checks its own compiled schema
+against that committed artifact at boot and refuses to start if they don't match, or if a newer
+deploy already removed something this build's code might still expect - so a schema change is
+either safe to apply automatically (adding a field or class), or has to go through `deprecated:
+true` first and `schema contract` explicitly once nothing depends on it anymore.
 
 A full documentation is available at [https://docs.servable.app](https://docs.servable.app)

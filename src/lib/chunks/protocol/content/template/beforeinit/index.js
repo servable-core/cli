@@ -4,7 +4,7 @@
  * @param {Object} app Express app.
  * @param {Object} schema Protocol's schema.
  * @param {Object} configuration Current Servable configuration.
- * @param {Object} server - Parse Server instance.
+ * @param {Object} server - The current engine's server instance (shape depends on which engine the app uses).
  * @param {Object} servableEngineConfig - Full servableEngineConfig.
  */
 
