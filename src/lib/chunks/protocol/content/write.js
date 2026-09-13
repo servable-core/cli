@@ -13,5 +13,8 @@ export default async (props = {}) => {
   })
 
   await ChunkIndex.write({ destination })
-  await ChunkTriggers.write({ destination })
+  // Triggers a protocol contributes to its host class belong under target/triggers/,
+  // not the protocol root - confirmed against @servable/tools's protocolLoader (v1.1.0.js),
+  // which only reads target/triggers/ and models/<name>/triggers/, never a bare root triggers/.
+  await ChunkTriggers.write({ destination: `${destination}/target` })
 }

@@ -1,14 +1,5 @@
 {
-    "managed": {
-        "classes": []
-    },
-    "target": {
-        "classLevelPermissions": {
-            "protectedFields": {
-                "*": []
-            }
-        },
-        "fields": {},
-        "indexes": {}
-    }
+  "managed": {
+    "classes": []
+  }
 }

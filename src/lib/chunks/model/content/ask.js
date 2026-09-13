@@ -11,7 +11,7 @@ export default async (props) => {
   let passes = false
 
   passes = await ChunkIndex.ask()
-  CliNext.payload.destination = `${CliNext.payload.protocolPath}/classes/${CliNext.payload.className.toLowerCase()}`
+  CliNext.payload.destination = `${CliNext.payload.protocolPath}/models/${CliNext.payload.className.toLowerCase()}`
 
   passes = await ChunkTriggers.ask()
 
