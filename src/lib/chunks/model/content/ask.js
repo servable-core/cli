@@ -11,6 +11,7 @@ export default async (props) => {
   let passes = false
 
   passes = await ChunkIndex.ask()
+  // The protocolLoader (v1.1.0.js) reads owned classes from models/<name>/, not classes/<name>/.
   CliNext.payload.destination = `${CliNext.payload.protocolPath}/models/${CliNext.payload.className.toLowerCase()}`
 
   passes = await ChunkTriggers.ask()
