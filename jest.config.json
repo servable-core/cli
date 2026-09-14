@@ -1,0 +1,6 @@
+{
+  "testRegex": "\\.test\\.js$",
+  "modulePathIgnorePatterns": [
+    "<rootDir>/src/lib/chunks/"
+  ]
+}

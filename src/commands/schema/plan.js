@@ -1,6 +1,6 @@
 import chalk from 'chalk'
 import { compileArtifact, plan as computePlan } from '@servable/tools'
-import loadServableConfig from '../../lib/schema/loadServableConfig.js'
+import loadServableConfig, { ARTIFACT_FILENAME } from '../../lib/schema/loadServableConfig.js'
 import readArtifact from '../../lib/schema/readArtifact.js'
 
 // Diffs the committed servable.schema.json (the "before") against what `schema build` would
@@ -71,8 +71,24 @@ export default ({
 
     console.log('')
 
-    if (ci && result.hasBreakingChanges) {
-      console.error(chalk.bold.red(`✖ ${result.breaking.length + result.breakingDeprecated.length} breaking change(s), failing.`))
+    // ANY change reaching this line means the committed artifact no longer matches the sources -
+    // the `!result.hashChanged` early return above already covered the only in-sync case. That
+    // mismatch is precisely what the server's boot check (checkSchemaCompatibility.js) hard-fails
+    // on, safe or breaking alike, so CI has to refuse it too: an image whose artifact disagrees
+    // with its own sources cannot start, and letting it build only moves the failure from the
+    // build to the rollout, after every check has already gone green.
+    //
+    // "Safe vs breaking" is the right question for `apply` (may this be written automatically?)
+    // and the wrong question here (can this image boot at all?). Gating on breaking changes alone
+    // is what let a safe, unbuilt `+ _User.idiom` through a real production build on 2026-09-14;
+    // only the operator aborting the run by hand kept the stale artifact out of production.
+    if (ci) {
+      if (result.hasBreakingChanges) {
+        console.error(chalk.bold.red(`✖ ${result.breaking.length + result.breakingDeprecated.length} breaking change(s), failing.`))
+      } else {
+        console.error(chalk.bold.red(`✖ ${ARTIFACT_FILENAME} is out of date - run 'servable schema apply' and commit the result.`))
+        console.error(chalk.red(`  Every change above is safe, but the server refuses to boot on ANY mismatch, so this build could not start.`))
+      }
       process.exit(1)
     }
   },
