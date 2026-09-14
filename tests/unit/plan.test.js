@@ -1,5 +1,12 @@
 import { jest } from '@jest/globals'
 
+// Lives in tests/, NOT beside the command it covers. `files` publishes src/, and clinext
+// imports every file under src/commands/ as a command at startup - so a *.test.js there is
+// loaded in a consumer's install, where its devDependencies do not exist, and the whole CLI
+// dies on every invocation. That is what be44f0e ('remove commands/model/test.js - crashed
+// the entire CLI on every invocation') fixed, and what shipping this beside plan.js broke
+// again in 2.0.1. no-tests-in-src.test.js now fails the build if anyone puts one back.
+//
 // First spec in this package. Covers the CI gate specifically, because that gate is what stands
 // between an unbuilt schema change and a production image that cannot boot - a safe, unbuilt
 // `+ _User.idiom` passed it on 2026-09-14 and a real production build proceeded.
@@ -18,17 +25,17 @@ jest.unstable_mockModule('@servable/tools', () => ({
     compileArtifact: (...a) => mockCompileArtifact(...a),
     plan: (...a) => mockComputePlan(...a),
 }))
-jest.unstable_mockModule('../../lib/schema/loadServableConfig.js', () => ({
+jest.unstable_mockModule('../../src/lib/schema/loadServableConfig.js', () => ({
     __esModule: true,
     default: (...a) => mockLoadServableConfig(...a),
     ARTIFACT_FILENAME: 'servable.schema.json',
 }))
-jest.unstable_mockModule('../../lib/schema/readArtifact.js', () => ({
+jest.unstable_mockModule('../../src/lib/schema/readArtifact.js', () => ({
     __esModule: true,
     default: (...a) => mockReadArtifact(...a),
 }))
 
-const { default: planCommand } = await import('./plan.js')
+const { default: planCommand } = await import('../../src/commands/schema/plan.js')
 
 const change = (kind, className, fieldName) => ({ kind, className, fieldName })
 
