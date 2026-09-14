@@ -1,20 +1,14 @@
 import { jest } from '@jest/globals'
 
-// Lives in tests/, NOT beside the command it covers. `files` publishes src/, and clinext
-// imports every file under src/commands/ as a command at startup - so a *.test.js there is
-// loaded in a consumer's install, where its devDependencies do not exist, and the whole CLI
-// dies on every invocation. That is what be44f0e ('remove commands/model/test.js - crashed
-// the entire CLI on every invocation') fixed, and what shipping this beside plan.js broke
-// again in 2.0.1. no-tests-in-src.test.js now fails the build if anyone puts one back.
+// Lives in tests/, NOT beside the command it covers. `files` publishes src/, and clinext imports
+// every file under src/commands/ as a command at startup - a *.test.js there is loaded in a
+// consumer's install, where its devDependencies do not exist, and the whole CLI dies. That broke
+// 2.0.1; no-tests-in-src.test.js guards it.
 //
-// First spec in this package. Covers the CI gate specifically, because that gate is what stands
-// between an unbuilt schema change and a production image that cannot boot - a safe, unbuilt
-// `+ _User.idiom` passed it on 2026-09-14 and a real production build proceeded.
-//
-// Everything the command touches is mocked: no protocol tree is compiled, no servable.schema.json
-// is read, nothing is written. jest.unstable_mockModule + dynamic import so the mocks are in place
-// before the module under test resolves its own imports (this package is ESM-native, run under
-// --experimental-vm-modules).
+// The handler is called exactly the way @clinext/sdk calls it: `handler({ toolbox })`, with parsed
+// flags on toolbox.payload. An earlier version of this file called handler({ ci: true }) - a shape
+// clinext never produces - and so stayed green while `schema plan --ci` did nothing in the real CLI.
+// The last test pins that down.
 const mockCompileArtifact = jest.fn()
 const mockComputePlan = jest.fn()
 const mockLoadServableConfig = jest.fn()
@@ -39,7 +33,16 @@ const { default: planCommand } = await import('../../src/commands/schema/plan.js
 
 const change = (kind, className, fieldName) => ({ kind, className, fieldName })
 
-const run = async ({ result, ci }) => {
+const safeDrift = {
+    hashChanged: true,
+    safe: [change('added', '_User', 'idiom')],
+    breakingDeprecated: [],
+    breaking: [],
+    hasBreakingChanges: false,
+}
+
+// handlerArg defaults to the real clinext shape; overridable to prove other shapes are not read.
+const run = async ({ result, payload = {}, handlerArg = { toolbox: { payload } } }) => {
     mockComputePlan.mockReturnValue(result)
     const exit = jest.spyOn(process, 'exit').mockImplementation(() => {
         throw new Error('__exited__')
@@ -51,7 +54,7 @@ const run = async ({ result, ci }) => {
 
     let exited = false
     try {
-        await planCommand.handler({ ci })
+        await planCommand.handler(handlerArg)
     } catch (e) {
         if (e.message !== '__exited__') throw e
         exited = true
@@ -65,27 +68,17 @@ beforeEach(() => jest.clearAllMocks())
 
 describe('schema plan --ci', () => {
     test('FAILS on a safe-but-unbuilt change - the artifact no longer matches the sources', async () => {
-        const { exited, code, errors } = await run({
-            ci: true,
-            result: {
-                hashChanged: true,
-                safe: [change('added', '_User', 'idiom')],
-                breakingDeprecated: [],
-                breaking: [],
-                hasBreakingChanges: false,
-            },
-        })
+        const { exited, code, errors } = await run({ result: safeDrift, payload: { ci: true } })
 
         expect(exited).toBe(true)
         expect(code).toBe(1)
-        // Must name the command that fixes it, not just complain.
         expect(errors).toMatch(/out of date/i)
         expect(errors).toMatch(/schema apply/)
     })
 
     test('keeps the distinct breaking-change message', async () => {
         const { exited, code, errors } = await run({
-            ci: true,
+            payload: { ci: true },
             result: {
                 hashChanged: true,
                 safe: [],
@@ -98,20 +91,13 @@ describe('schema plan --ci', () => {
         expect(exited).toBe(true)
         expect(code).toBe(1)
         expect(errors).toMatch(/breaking change/i)
-        // The two failures must stay tellable apart.
         expect(errors).not.toMatch(/out of date/i)
     })
 
     test('PASSES when the artifact is in sync', async () => {
         const { exited, logs } = await run({
-            ci: true,
-            result: {
-                hashChanged: false,
-                safe: [],
-                breakingDeprecated: [],
-                breaking: [],
-                hasBreakingChanges: false,
-            },
+            payload: { ci: true },
+            result: { hashChanged: false, safe: [], breakingDeprecated: [], breaking: [], hasBreakingChanges: false },
         })
 
         expect(exited).toBe(false)
@@ -119,18 +105,17 @@ describe('schema plan --ci', () => {
     })
 
     test('without --ci it stays a report and never exits non-zero', async () => {
-        const { exited, logs } = await run({
-            ci: false,
-            result: {
-                hashChanged: true,
-                safe: [change('added', '_User', 'idiom')],
-                breakingDeprecated: [],
-                breaking: [change('removed', 'Post', 'title')],
-                hasBreakingChanges: true,
-            },
-        })
+        const { exited, logs } = await run({ result: safeDrift, payload: {} })
 
         expect(exited).toBe(false)
         expect(logs).toMatch(/_User\.idiom/)
+    })
+
+    test('reads --ci from toolbox.payload only - a top-level ci arg is the shape that never worked', async () => {
+        const { exited } = await run({
+            result: safeDrift,
+            handlerArg: { ci: true, toolbox: { payload: {} } },
+        })
+        expect(exited).toBe(false)
     })
 })

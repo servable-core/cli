@@ -41,7 +41,14 @@ export default ({
     },
   ],
   example: "$0 schema contract --reason=\"superseded by nature, deprecated since 2026-08\"",
-  handler: async ({ reason, force } = {}) => {
+  // clinext does NOT pass flags as top-level handler args - it passes { toolbox }, with the parsed
+  // flags under toolbox.payload (confirmed by logging the real argument on 2026-09-14). The
+  // previous `({ reason, force } = {})` destructuring therefore always read undefined: `--reason` never arrived, so
+  // every contract exited on '--reason is required' and no field could ever be removed; --force
+  // was silently ignored.
+
+  handler: async ({ toolbox } = {}) => {
+    const { reason, force } = toolbox?.payload || {}
     if (!reason) {
       console.error(chalk.bold.red(`✖ --reason is required - every contraction is recorded, not silent.`))
       process.exit(1)

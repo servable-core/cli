@@ -42,7 +42,13 @@ export default ({
     },
   ],
   example: "$0 schema plan --ci",
-  handler: async ({ ci } = {}) => {
+  // clinext does NOT pass flags as top-level handler args - it passes { toolbox }, with the parsed
+  // flags under toolbox.payload (confirmed by logging the real argument on 2026-09-14). The
+  // previous `({ ci } = {})` destructuring therefore always read undefined: `--ci` never reached this
+  // handler, so the build-script gate never failed on anything - not drift, not even breaking changes.
+
+  handler: async ({ toolbox } = {}) => {
+    const { ci } = toolbox?.payload || {}
     const servableConfig = await loadServableConfig()
     const before = readArtifact()
     const after = await compileArtifact({ servableConfig })
