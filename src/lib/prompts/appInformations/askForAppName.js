@@ -2,7 +2,7 @@
  * Copyright (C) Servable Community. All rights reserved.
  *--------------------------------------------------------*/
 /**
- * */
+ */
 
 import path from "path";
 import askForGeneric from "../utils/askForGeneric.js";

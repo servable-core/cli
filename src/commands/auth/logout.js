@@ -74,7 +74,15 @@ export default ({
 })
 
 
-const doLogout = async ({ username, password, }) => {
+// Real bug, found via checkJs (lucide, PEAKUB DX initiative): this destructured `{ username,
+// password }`, but the caller above has never had a password to give it (it's a session-token
+// logout, not a login) - it passes `sessionToken`, which this function silently dropped, so
+// every logout request has always sent `{ username, password: undefined }` and never actually
+// identified the session being ended. Sending the session token as a Bearer header is the
+// standard shape for this and an improvement over "not sent at all", but this hasn't been
+// verified against what SERVABLE_API_HOST's /user/logout route actually expects - flagging
+// rather than asserting this is now fully correct.
+const doLogout = async ({ username, sessionToken }) => {
   const url = `${CliNext.env.SERVABLE_API_HOST}/user/logout`
 
   try {
@@ -83,10 +91,10 @@ const doLogout = async ({ username, password, }) => {
       url,
       headers: {
         "content-type": "application/json",
+        ...(sessionToken ? { authorization: `Bearer ${sessionToken}` } : {}),
       },
       data: {
         username,
-        password,
       }
     })
 

@@ -1,4 +1,8 @@
+// @ts-nocheck - lucide (PEAKUB DX initiative): dead code, found via checkJs - same finding as
+// the sibling copy in updateClassForEjectedProtocol/lib/relativePath.js (see that file's own
+// note): never called, and even if it were, 'common-path' isn't a real dependency here.
 import path from "path"
+// eslint-disable-next-line n/no-missing-import -- see the dead-code note above; already known.
 import commonPath from 'common-path'
 
 export default async (target, src) => {

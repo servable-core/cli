@@ -47,6 +47,10 @@ export default ({
   // every contract exited on '--reason is required' and no field could ever be removed; --force
   // was silently ignored.
 
+  /**
+   * @param {{ toolbox?: { payload?: { reason?: string, force?: boolean } } }} [props] - the
+   *  real shape @clinext/sdk calls handlers with; see this file's own comment above for why.
+   */
   handler: async ({ toolbox } = {}) => {
     const { reason, force } = toolbox?.payload || {}
     if (!reason) {
@@ -79,8 +83,14 @@ export default ({
     const allRemovals = [...result.breaking, ...result.breakingDeprecated]
 
     const outPath = path.resolve(process.cwd(), ARTIFACT_FILENAME)
+    const newFloor = (before.compatibilityFloor || 0) + 1
+    // `compatibilityFloor` is set directly in this literal (not assigned onto `annotated`
+    // afterward, as a prior version of this did) - `after`'s own type (compileArtifact()'s
+    // return) has no such property, so mutating it in after-the-fact would be adding a property
+    // TS never agreed `annotated` has (found via checkJs, lucide/PEAKUB DX initiative).
     const annotated = {
       ...after,
+      compatibilityFloor: newFloor,
       breakingChanges: [
         ...(before.breakingChanges || []),
         ...allRemovals.map(c => ({
@@ -96,8 +106,6 @@ export default ({
         })),
       ],
     }
-    const newFloor = (before.compatibilityFloor || 0) + 1
-    annotated.compatibilityFloor = newFloor
     fs.writeFileSync(outPath, JSON.stringify(annotated, null, 2) + '\n')
 
     console.log(chalk.bold.yellow(`✓ Contracted ${allRemovals.length} item(s). compatibilityFloor -> ${newFloor} (recorded in ${ARTIFACT_FILENAME}). Deploying this makes any pod older than the new floor refuse to boot - see server-unischema's boot check.`))

@@ -47,6 +47,10 @@ export default ({
   // previous `({ ci } = {})` destructuring therefore always read undefined: `--ci` never reached this
   // handler, so the build-script gate never failed on anything - not drift, not even breaking changes.
 
+  /**
+   * @param {{ toolbox?: { payload?: { ci?: boolean } } }} [props] - the real shape
+   *  @clinext/sdk calls handlers with; see this file's own comment above for why.
+   */
   handler: async ({ toolbox } = {}) => {
     const { ci } = toolbox?.payload || {}
     const servableConfig = await loadServableConfig()

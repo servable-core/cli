@@ -6,15 +6,18 @@ export default async (props) => {
         destination,
         source: '.github/**/*',
       })
-    } break
+      break
+    }
     case 'gitlab': {
       await CliNext.fs.chunks.copy({
         destination,
         source: 'gitlab-ci.yml',
       })
-    } break
+      break
+    }
     default: {
-
-    } break
+      // No release type selected - no CI config to scaffold.
+      break
+    }
   }
 }

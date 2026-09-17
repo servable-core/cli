@@ -3,7 +3,7 @@
  *--------------------------------------------------------*/
 
 import updateNotifier from 'update-notifier'
-import packageJson from '../../../../package.json' assert { type: 'json' }
+import packageJson from '../../../../package.json' with { type: 'json' }
 
 export default async (props) => {
     const { toolbox, payload, toolboxs } = props

@@ -2,9 +2,15 @@
  * Copyright (C) Servable Community. All rights reserved.
  *--------------------------------------------------------*/
 
+// @ts-nocheck - lucide (PEAKUB DX initiative): dead code, found via checkJs. Nothing imports
+// this file's default export (only its sibling lib/protocolSchemaOwnClasses.js is used
+// directly, from src/lib/chunks/model/index/ask.js) - its own `askForGeneric` import is wrong
+// (points at a nonexistent src/lib/newlib/utils/, not src/lib/prompts/utils/), but since the
+// file is unreachable that's never surfaced as a runtime error.
 import path from "path"
 import chalk from "chalk"
 import capitalizeFirstLetter from "../../lib/capitalizeFirstLetter.js"
+// eslint-disable-next-line n/no-missing-import -- see the dead-code note above; already known.
 import askForGeneric from "../utils/askForGeneric.js"
 import protocolSchemaOwnClasses from "./lib/protocolSchemaOwnClasses.js"
 

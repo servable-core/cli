@@ -5,7 +5,8 @@
 import askForGeneric from "../utils/askForGeneric.js"
 
 /**
- * */
+ * @param props
+ */
 export default async (props) => {
     const { toolbox, payload, options: { force = false } = {} } = props
     if (!force && payload.promptGroupsPassed.gitInit) {

@@ -15,16 +15,19 @@ export default async (props) => {
         destination,
         source: '{.}yarnrc',
       })
-    } break
+      break
+    }
     case 'pnpm': {
       await CliNext.fs.chunks.copy({
         destination,
         source: '{.}npmrc-pnpm',
       })
-    } break
+      break
+    }
     default: {
-
-    } break
+      // npm needs no extra config file beyond the .npmignore already copied above.
+      break
+    }
   }
 
 
