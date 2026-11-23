@@ -119,3 +119,23 @@ describe('schema plan --ci', () => {
         expect(exited).toBe(false)
     })
 })
+
+describe('schema plan, ensured indexes', () => {
+    test('names each change of an ensured index in words, never as an unknown kind', async () => {
+        const indexChange = (kind, indexName) => ({ kind, className: 'UniqueClaim', indexName })
+        const { logs } = await run({
+            payload: {},
+            result: {
+                hashChanged: true,
+                safe: [indexChange('ensuredIndexAdded', 'key_1')],
+                breakingDeprecated: [],
+                breaking: [indexChange('ensuredIndexRemoved', 'code_1'), indexChange('ensuredIndexChanged', '_cursor_')],
+                hasBreakingChanges: true,
+            },
+        })
+        expect(logs).toMatch(/\+ ensured index UniqueClaim \(index key_1\)/)
+        expect(logs).toMatch(/- ensured index UniqueClaim \(index code_1\)/)
+        expect(logs).toMatch(/~ ensured index UniqueClaim \(index _cursor_\)/)
+        expect(logs).not.toMatch(/\?/)
+    })
+})

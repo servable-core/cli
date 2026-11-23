@@ -25,6 +25,9 @@ const describeChange = (c) => {
     case 'indexAdded': return `+ index ${where}`
     case 'indexRemoved': return `- index ${where}`
     case 'indexChanged': return `~ index ${where}`
+    case 'ensuredIndexAdded': return `+ ensured index ${where}`
+    case 'ensuredIndexRemoved': return `- ensured index ${where}`
+    case 'ensuredIndexChanged': return `~ ensured index ${where}`
     case 'classLevelPermissionsChanged': return `~ ${c.className}  classLevelPermissions changed`
     default: return `? ${c.kind} ${where}`
   }
